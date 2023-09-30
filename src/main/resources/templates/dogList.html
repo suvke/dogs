@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dog list</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <table>
+        <h1>List of all dog breeds</h1>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Country</th>
+                <th>Height (cm)</th>
+                <th>Weight (kg)</th>
+                <th>Original use</th>
+                <th>FCI group</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="dog : ${dogs}">
+                <td th:text="${dog.name}"></td>
+                <td th:text="${dog.origin}"></td>
+                <td th:text="${dog.height}"></td>
+                <td th:text="${dog.weight}"></td>
+                <td th:text="${dog.originalUse}"></td>
+                <td th:text="${dog.group.groupCode}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+
