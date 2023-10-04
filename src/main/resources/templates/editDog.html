@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>DogList</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Add dog</h1>
+	<div>
+		<form th:object="${dog}" th:action="@{../save}" action="#" method="post">
+			<input type="hidden" id="id" th:field="*{id}" />
+		  	<label for="name">Name</label>
+			<input type="text" id="name" th:field="*{name}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+		  	<label for="origin">Origin</label>
+			<input type="text" id="origin" th:field="*{origin}" />
+			<div style="clear: botlh; display: block; height: 10px;"></div>
+			
+		  	<label for="height">Height</label>
+			<input type="text" th:field="*{height}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+			<label for="weight">Weight</label>
+			<input type="text" th:field="*{weight}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+			<label for="originalUse">Original use</label>
+			<input type="text" th:field="*{originalUse}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+									
+		  	<label for="deplist">FCI group</label>
+			 <select id="deplist" th:field="*{group}" class="form-control">
+       			<option th:each="group: ${groups}" th:value="${group.groupId}" th:text="${group.groupCode}"></option>
+    		</select>
+			
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<input type="submit" value="Save"></input>
+		</form>
+	</div>
+</body>
+</html>

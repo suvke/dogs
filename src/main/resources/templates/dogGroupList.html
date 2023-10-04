@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dog group list</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <table>
+        <h1>List of all FCI dog groups</h1>
+        <thead>
+            <tr>
+                <th>FCI group code</th>
+                <th>Group name</th>            
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="group : ${groups}">
+                <td th:text="${group.groupCode}"></td>
+                <td th:text="${group.name}"></td>                       
+            </tr>
+        </tbody>
+    </table>
+    <!-- This is a button which redirects to the main page "/doglist" -->
+    <a th:href="@{/doglist}" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; font-size: 16px; cursor: pointer; border-radius: 5px;">Back to dog list</a>
+</body>
+</html>

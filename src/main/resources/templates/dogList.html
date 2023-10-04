@@ -1,12 +1,17 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <title>Dog list</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
     <table>
-        <h1>List of all dog breeds</h1>
+        <h1>Welcome to the dog database</h1>
+        <div>Signed in: <span sec:authentication="name"></span> <form th:action="@{/logout}" method="post"></div>
+        <!-- This is a button for logging out -->
+        <input type="submit" value="Sign Out" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; font-size: 16px; cursor: pointer; border-radius: 5px;"/></form>
+        <br><br>
         <thead>
             <tr>
                 <th>Name</th>
@@ -25,9 +30,19 @@
                 <td th:text="${dog.weight}"></td>
                 <td th:text="${dog.originalUse}"></td>
                 <td th:text="${dog.group.groupCode}"></td>
+                <!-- Only admin users have the rights to edit -->
+                <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${dog.id})}" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; font-size: 16px; cursor: pointer; border-radius: 5px;">Edit</a></td>   
+                <!-- By clicking this button, a dog is deleted from the database based on its id -->
+                <!-- Only admin users have the rights to delete -->
+                <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${dog.id})}" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; font-size: 16px; cursor: pointer; border-radius: 5px;">Delete</a></td>
             </tr>
         </tbody>
     </table>
+    <!-- This is a button which redirects to the page "/add" where new dog can be added-->
+    <!-- Only admin users have the rights to add -->
+    <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/add}" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; font-size: 16px; cursor: pointer; border-radius: 5px;">Add Dog</a>
+    <!-- This is a button which redirects to the page "/grouplist" where all dog groups are listed -->
+    <a th:href="@{/grouplist}" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; font-size: 16px; cursor: pointer; border-radius: 5px;">Show all FCI groups</a>
 </body>
 </html>
 
