@@ -6,6 +6,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Dog {
@@ -14,10 +18,24 @@ public class Dog {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
+	@NotEmpty(message="Name can't be empty")
+	@Size(min=5, max=40, message="Name must be 5-40 characters long")
 	private String name;
+	
+	@NotEmpty(message="Origin can't be empty")
+	@Size(min=1, max=20, message="Origin must be 1-20 characters long")
 	private String origin;
+	
+	@Min(value=15, message="minimum value is 15")
+	@Max(value=80, message="maximum value is 80")
 	private int height;
+	
+	@Min(value=2, message="minimum value is 2")
+	@Max(value=100, message="maximum value is 100")
 	private int weight;
+	
+	@NotEmpty(message="Original use can't be empty")
+	@Size(min=5, max=30, message="Original use must be 5-30 characters long")
 	private String originalUse;
 	
 	// jokainen koirarotu kuuluu yhteen roturyhmään, roturyhmään voi kuulua monia koiria

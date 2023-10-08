@@ -4,13 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import dogs.dogDatabase.domain.Dog;
 import dogs.dogDatabase.domain.DogRepository;
 import dogs.dogDatabase.domain.GroupRepository;
+import jakarta.validation.Valid;
 
 @Controller
 public class DogController {
@@ -43,12 +46,21 @@ public class DogController {
 		return "addDog";
 	}
 	
-	// tallennetaan uusi koira ja ohjataan takaisin /doglist sivulle
+	//ennen tietojen tallennusta tarkistetaan, onko lomakkeeelle syötetyissä tiedoissa virheitä 
+	//jos tiedot on annettu oikein, tallennetaan uusi koira ja ohjataan takaisin /doglist sivulle
 	@PostMapping("/save")
-	public String save(Dog dog) {
+	public String save(@Valid @ModelAttribute("dog") Dog dog, BindingResult bindingResult, Model model) {
+		
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("dog", dog);
+			model.addAttribute("groups", groupRepository.findAll());
+			return "addDog";
+		}
+		
 		dogRepository.save(dog);
 		return "redirect:doglist";
 	}
+
 	
 	//poistetaan koira tietokannasta
 	//vain admin tasoisilla käyttäjillä on oikeus poistaa koira
@@ -75,4 +87,5 @@ public class DogController {
 		model.addAttribute("groups", groupRepository.findAll());
 		return "dogGroupList";
 	}
+	
 }

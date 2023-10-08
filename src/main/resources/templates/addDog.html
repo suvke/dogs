@@ -10,22 +10,27 @@
 		<form th:object="${dog}" th:action="@{save}" action="#" method="post">
 		  	<label for="name">Name</label>
 			<input type="text" id="name" th:field="*{name}" />
+			<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</div>
 			<div style="clear: both; display: block; height: 10px;"></div>
 			
 		  	<label for="origin">Origin</label>
 			<input type="text" id="origin" th:field="*{origin}" />
+			<div th:if="${#fields.hasErrors('origin')}" th:errors="*{origin}">Error</div>
 			<div style="clear: both; display: block; height: 10px;"></div>
 			
 		  	<label for="height">Height</label>
 			<input type="text" th:field="*{height}" />
+			<div th:if="${#fields.hasErrors('height')}" th:errors="*{height}">Error</div>
 			<div style="clear: both; display: block; height: 10px;"></div>
 			
 			<label for="weight">Weight</label>
 			<input type="text" th:field="*{weight}" />
+			<div th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">Error</div>
 			<div style="clear: both; display: block; height: 10px;"></div>
 			
 			<label for="originalUse">Original use</label>
 			<input type="text" th:field="*{originalUse}" />
+			<div th:if="${#fields.hasErrors('originalUse')}" th:errors="*{originalUse}">Error</div>
 			<div style="clear: both; display: block; height: 10px;"></div>
 									
 		  	<label for="deplist">FCI group</label>
