@@ -3,11 +3,12 @@
 <head>
     <title>Dog group list</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body>
-    <table>
-        <h1>List of all FCI dog groups</h1>
-        <thead>
+<body class="container mt-4">
+    <h1>List of all FCI dog groups</h1>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
             <tr>
                 <th>FCI group code</th>
                 <th>Group name</th>            
@@ -20,7 +21,8 @@
             </tr>
         </tbody>
     </table>
+    
     <!-- This is a button which redirects to the main page "/doglist" -->
-    <a th:href="@{/doglist}" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; font-size: 16px; cursor: pointer; border-radius: 5px;">Back to dog list</a>
+    <a th:href="@{/doglist}" class="btn btn-success">Back to dog list</a>
 </body>
 </html>

@@ -4,13 +4,15 @@
 <head>
     <title>Dog list</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 </head>
 <body>
-    <table>
+    <table class="table table-striped table-bordered">
         <h1>Welcome to the dog database</h1>
         <div>Signed in: <span sec:authentication="name"></span> <form th:action="@{/logout}" method="post"></div>
         <!-- This is a button for logging out -->
-        <input type="submit" value="Sign Out" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; font-size: 16px; cursor: pointer; border-radius: 5px;"/></form>
+        <input type="submit" value="Sign Out" class="btn btn-primary"/></form>
         <br><br>
         <thead>
             <tr>
@@ -31,18 +33,18 @@
                 <td th:text="${dog.originalUse}"></td>
                 <td th:text="${dog.group.groupCode}"></td>
                 <!-- Only admin users have the rights to edit -->
-                <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${dog.id})}" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; font-size: 16px; cursor: pointer; border-radius: 5px;">Edit</a></td>   
+                <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${dog.id})}" class="btn btn-secondary">Edit</a></td>   
                 <!-- By clicking this button, a dog is deleted from the database based on its id -->
                 <!-- Only admin users have the rights to delete -->
-                <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${dog.id})}" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; font-size: 16px; cursor: pointer; border-radius: 5px;">Delete</a></td>
+                <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${dog.id})}" class="btn btn-danger">Delete</a></td>
             </tr>
         </tbody>
     </table>
     <!-- This is a button which redirects to the page "/add" where new dog can be added-->
     <!-- Only admin users have the rights to add -->
-    <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/add}" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; font-size: 16px; cursor: pointer; border-radius: 5px;">Add Dog</a>
+    <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/add}" class="btn btn-primary">Add Dog</a>
     <!-- This is a button which redirects to the page "/grouplist" where all dog groups are listed -->
-    <a th:href="@{/grouplist}" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; font-size: 16px; cursor: pointer; border-radius: 5px;">Show all FCI groups</a>
+    <a th:href="@{/grouplist}" class="btn btn-primary">Show all FCI groups</a>
 </body>
 </html>
 

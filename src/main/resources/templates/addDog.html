@@ -3,44 +3,54 @@
 <head>
     <title>DogList</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body>
-	<h1>Add dog</h1>
-	<div>
-		<form th:object="${dog}" th:action="@{save}" action="#" method="post">
-		  	<label for="name">Name</label>
-			<input type="text" id="name" th:field="*{name}" />
-			<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</div>
-			<div style="clear: both; display: block; height: 10px;"></div>
-			
-		  	<label for="origin">Origin</label>
-			<input type="text" id="origin" th:field="*{origin}" />
-			<div th:if="${#fields.hasErrors('origin')}" th:errors="*{origin}">Error</div>
-			<div style="clear: both; display: block; height: 10px;"></div>
-			
-		  	<label for="height">Height</label>
-			<input type="text" th:field="*{height}" />
-			<div th:if="${#fields.hasErrors('height')}" th:errors="*{height}">Error</div>
-			<div style="clear: both; display: block; height: 10px;"></div>
-			
-			<label for="weight">Weight</label>
-			<input type="text" th:field="*{weight}" />
-			<div th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">Error</div>
-			<div style="clear: both; display: block; height: 10px;"></div>
-			
-			<label for="originalUse">Original use</label>
-			<input type="text" th:field="*{originalUse}" />
-			<div th:if="${#fields.hasErrors('originalUse')}" th:errors="*{originalUse}">Error</div>
-			<div style="clear: both; display: block; height: 10px;"></div>
-									
-		  	<label for="deplist">FCI group</label>
-			 <select id="deplist" th:field="*{group}" class="form-control">
-       			<option th:each="group: ${groups}" th:value="${group.groupId}" th:text="${group.groupCode}"></option>
-    		</select>
-			
-			<div style="clear: both; display: block; height: 10px;"></div>
-			<input type="submit" value="Save"></input>
-		</form>
-	</div>
+<body class="container mt-4">
+    <h1 class="mb-4">Add Dog</h1>
+    <div class="col-md-6">
+        <form th:object="${dog}" th:action="@{save}" action="#" method="post">
+
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" th:field="*{name}" class="form-control" />
+                <div th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}">Error</div>
+            </div>
+
+            <div class="form-group">
+                <label for="origin">Origin</label>
+                <input type="text" id="origin" th:field="*{origin}" class="form-control" />
+                <div th:if="${#fields.hasErrors('origin')}" class="text-danger" th:errors="*{origin}">Error</div>
+            </div>
+
+            <div class="form-group">
+                <label for="height">Height</label>
+                <input type="text" th:field="*{height}" class="form-control" />
+                <div th:if="${#fields.hasErrors('height')}" class="text-danger" th:errors="*{height}">Error</div>
+            </div>
+
+            <div class="form-group">
+                <label for="weight">Weight</label>
+                <input type="text" th:field="*{weight}" class="form-control" />
+                <div th:if="${#fields.hasErrors('weight')}" class="text-danger" th:errors="*{weight}">Error</div>
+            </div>
+
+            <div class="form-group">
+                <label for="originalUse">Original use</label>
+                <input type="text" th:field="*{originalUse}" class="form-control" />
+                <div th:if="${#fields.hasErrors('originalUse')}" class="text-danger" th:errors="*{originalUse}">Error</div>
+            </div>
+
+            <div class="form-group">
+                <label for="deplist">FCI group</label>
+                <select id="deplist" th:field="*{group}" class="form-control">
+                    <option th:each="group: ${groups}" th:value="${group.groupId}" th:text="${group.groupCode}"></option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+            <!-- This is a button which redirects to the main page "/doglist" -->
+    		<a th:href="@{/doglist}" class="btn btn-danger">Cancel</a>
+        </form>
+    </div>
 </body>
 </html>

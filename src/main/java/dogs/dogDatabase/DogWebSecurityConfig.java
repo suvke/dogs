@@ -1,5 +1,7 @@
 package dogs.dogDatabase;
 
+import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +25,14 @@ public class DogWebSecurityConfig {
 		
 		http.
 		authorizeHttpRequests(authorize -> authorize
+				.requestMatchers(antMatcher("/grouplist/**")).permitAll()
+				.requestMatchers(antMatcher("/dogs/**")).hasAuthority("ADMIN")
+				.requestMatchers(antMatcher("/groups/**")).hasAuthority("ADMIN")
+				.requestMatchers(antMatcher("/dog/**")).hasAuthority("ADMIN")
+				.requestMatchers(antMatcher("/save/**")).hasAuthority("ADMIN")
+				.requestMatchers(antMatcher("/add/**")).hasAuthority("ADMIN")
+				.requestMatchers(antMatcher("/edit/**")).hasAuthority("ADMIN")
+				.requestMatchers(antMatcher("/delete/**")).hasAuthority("ADMIN")
 				.anyRequest().authenticated()
 		)
 		.headers(headers -> headers
@@ -36,7 +46,8 @@ public class DogWebSecurityConfig {
 				.permitAll()
 		)
 		.logout(logout -> logout
-				.permitAll()
+				.permitAll())
+				.csrf(csrf -> csrf.disable()
 		);		
 				
 		return http.build();
