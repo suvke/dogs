@@ -18,12 +18,15 @@ import jakarta.validation.Valid;
 @Controller
 public class DogController {
 	
+	//injektoidaan DogRepository käyttöön
 	@Autowired
 	private DogRepository dogRepository;
 	
+	//injektoidaan GroupRepository käyttöön
 	@Autowired
 	private GroupRepository groupRepository;
 	
+	//login-sivu, joka palauttaa sisäänkirjautumislomakkeen
 	@GetMapping("/login")
 	public String AppLogin() {
 		return "loginForm";
@@ -59,10 +62,10 @@ public class DogController {
 		
 		dogRepository.save(dog);
 		return "redirect:doglist";
-	}
+	} 
 
 	
-	//poistetaan koira tietokannasta
+	//poistetaan koira tietokannasta id:n perusteella
 	//vain admin tasoisilla käyttäjillä on oikeus poistaa koira
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/delete/{id}")
@@ -71,7 +74,7 @@ public class DogController {
 		return "redirect:../doglist";
 	}
 	
-	//editoidaan tietokannassa olevan koiran tietoja
+	//editoidaan tietokannassa olevan koiran tietoja id:n perusteella
 	//vain admin tasoisilla käyttäjillä on oikeus muokata koiran tietoja
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/edit/{id}")
@@ -81,7 +84,25 @@ public class DogController {
 		return "editDog";
 	}
 	
+	//oma save-metodi editoidun koiran tietojen tallentamista varten
+	//tarkistetaan käyttäjän syötteet
+	//jos tiedot on annettu oikein, tallennetaan koiran tiedot (huom! ei lisätä uutta koiraa) ja ohjataan takaisin /doglist sivulle
+	@PostMapping("/saveedit")
+	public String saveEdit(@Valid @ModelAttribute("dog") Dog dog, BindingResult bindingResult, Model model) {
+			
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("dog", dog);
+			model.addAttribute("groups", groupRepository.findAll());
+			return "editDog";
+		}
+			
+		dogRepository.save(dog);
+		return "redirect:doglist";
+	}
+
+	
 	//näytetään lista kaikista koirarotuluokista
+	//tähän on pääsy kaikilla käyttäjillä
 	@GetMapping("/grouplist")
 	public String dogGroupList(Model model) {
 		model.addAttribute("groups", groupRepository.findAll());

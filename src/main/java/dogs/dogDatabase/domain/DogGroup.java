@@ -22,6 +22,7 @@ public class DogGroup {
 	
 	private String name;
 	
+	//yhteen roturyhmään voi kuulua monta koiraa
 	@JsonIgnore
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="group")
 	private List<Dog> dogs;

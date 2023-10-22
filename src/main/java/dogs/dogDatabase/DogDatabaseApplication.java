@@ -23,6 +23,7 @@ public class DogDatabaseApplication {
 	public CommandLineRunner demo(DogRepository dogRep, GroupRepository groupRep, DogAppUserRepository dogAppUserRep) {
 	return (args) -> {
 		
+		// lisätään roturyhmiä ajonaikaiseen tietokantaan
 		groupRep.save(new DogGroup("FCI 1", "Lammas- ja karjakoirat"));
 		groupRep.save(new DogGroup("FCI 2", "Pinserit, snautserit, molossityyppiset ja sveitsinpaimenkoirat"));
 		groupRep.save(new DogGroup("FCI 3", "Terrierit"));
@@ -34,17 +35,18 @@ public class DogDatabaseApplication {
 		groupRep.save(new DogGroup("FCI 9", "Seura- ja kääpiökoirat"));
 		groupRep.save(new DogGroup("FCI 10", "Vinttikoirat"));
 		
+		// lisätään muutama koira ajonaikaiseen tietokantaan
 		dogRep.save(new Dog("australianpaimenkoira", "USA", 45, 30, "paimennus", groupRep.findByName("Lammas- ja karjakoirat").get(0)));
 		dogRep.save(new Dog("coton de tulear", "Madagaskar", 25, 8, "seurakoira", groupRep.findByName("Seura- ja kääpiökoirat").get(0)));
-		dogRep.save(new Dog("englanninsetteri", "Iso-Britannia", 40, 25, "lintukoira", groupRep.findByName("Seisovat lintukoirat").get(0)));
-		dogRep.save(new Dog("norfolkinterrieri", "Iso-Britannia", 25, 10, "terrieri", groupRep.findByName("Terrierit").get(0)));
+		dogRep.save(new Dog("englanninsetteri", "Iso-Britannia", 40, 25, "lintujen metsästys", groupRep.findByName("Seisovat lintukoirat").get(0)));
+		dogRep.save(new Dog("norfolkinterrieri", "Iso-Britannia", 25, 10, "pieneläinten pyydystys", groupRep.findByName("Terrierit").get(0)));
+		dogRep.save(new Dog("suomenlapinkoira", "Suomi", 45, 20, "poronhoito", groupRep.findByName("Pystykorvat ja alkukantaiset koirat").get(0)));
 		
-		DogAppUser user1 = new DogAppUser("user", "$2a$10$tE9wixP88rCi/.YsBE./TedZij6N7ovj4vAmW1h.5mvb06impe9Ka", "USER");
-		DogAppUser user2 = new DogAppUser("admin", "$2a$10$1J7gZs79aA.TnQ.DT263nexqVXCLod03.pZSzM6YZS5rcJT52vjM2", "ADMIN");
+		// lisätään kaksi eri käyttäjätyyppiä ajonaikaiseen tietokantaan
+		dogAppUserRep.save(new DogAppUser("user", "$2a$10$tE9wixP88rCi/.YsBE./TedZij6N7ovj4vAmW1h.5mvb06impe9Ka", "USER"));
+		dogAppUserRep.save(new DogAppUser("admin", "$2a$10$1J7gZs79aA.TnQ.DT263nexqVXCLod03.pZSzM6YZS5rcJT52vjM2", "ADMIN"));
 		
-		dogAppUserRep.save(user1);
-		dogAppUserRep.save(user2);
-	};
+	}; 
 		
 	}
 

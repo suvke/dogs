@@ -9,10 +9,13 @@
 </head>
 <body>
     <table class="table table-striped table-bordered">
-        <h1>Welcome to the dog database</h1>
-        <div>Signed in: <span sec:authentication="name"></span> <form th:action="@{/logout}" method="post"></div>
-        <!-- This is a button for logging out -->
-        <input type="submit" value="Sign Out" class="btn btn-primary"/></form>
+       <h1>Welcome to the dog database</h1>
+        	<!-- This shows the user who is currently signed in -->
+        	<div style="text-align: right">Signed in: <span sec:authentication="name"></span>
+        		<!-- This is a button for logging out -->
+        		<form th:action="@{/logout}" method="post">
+        		<input type="submit" value="Sign Out" class="btn btn-primary"/></form>
+        	</div>
         <br><br>
         <thead>
             <tr>

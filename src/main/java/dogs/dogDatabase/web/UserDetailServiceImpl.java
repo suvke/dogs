@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import dogs.dogDatabase.domain.DogAppUser;
 import dogs.dogDatabase.domain.DogAppUserRepository;
 
+//tätä luokkaa käytetään käyttäjän tunnistamiseen ja autorisointiin
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
 
